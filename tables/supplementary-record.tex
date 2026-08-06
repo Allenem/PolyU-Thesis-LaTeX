@@ -1,0 +1,32 @@
+\begin{longtable}{@{}>{\centering\arraybackslash}p{0.08\textwidth}p{0.24\textwidth}p{0.59\textwidth}@{}}
+  \caption[Example multi-page supplementary table.]{Example multi-page supplementary table containing distinct reproducibility records and a repeated header.}
+  \label{tab:appendix-long}\\
+  \toprule
+  \textbf{ID} & \textbf{Record} & \textbf{Information to report} \\
+  \midrule
+  \endfirsthead
+  \multicolumn{3}{l}{\small\itshape \tablename\ \thetable\ continued from the previous page}\\
+  \toprule
+  \textbf{ID} & \textbf{Record} & \textbf{Information to report} \\
+  \midrule
+  \endhead
+  \midrule
+  \multicolumn{3}{r}{\small\itshape Continued on the next page}\\
+  \endfoot
+  \bottomrule
+  \endlastfoot
+  01 & Data provenance & Identify the source, collection period, licence, version, and any access restrictions for every dataset used in the thesis. \\
+  02 & Cohort definition & Record inclusion and exclusion criteria, recruitment flow, and the final number of observations available for each analysis. \\
+  03 & Split protocol & State how training, validation, and test partitions were formed and how leakage between related observations was prevented. \\
+  04 & Preprocessing & List transformations in execution order, including normalisation constants, resizing rules, filtering, and handling of invalid records. \\
+  05 & Hyperparameters & Report the search space, selection criterion, final settings, and whether tuning used information from the held-out test set. \\
+  06 & Randomness & Provide random seeds and identify operations whose output may remain non-deterministic across hardware or software versions. \\
+  07 & Ablation study & Define the component removed or altered, the controlled baseline, and the metric used to attribute a change in performance. \\
+  08 & External validation & Describe domain differences between development and external data and state whether any adaptation occurred before evaluation. \\
+  09 & Missing data & Give the amount and pattern of missingness, the chosen treatment, and a sensitivity analysis when assumptions may affect conclusions. \\
+  10 & Calibration & Specify the calibration measure, binning or fitting procedure, confidence intervals, and any post-hoc adjustment applied to predictions. \\
+  11 & Resource use & Report timing boundaries, repetitions, hardware, batch size, numerical precision, and peak host and accelerator memory. \\
+  12 & Software environment & Preserve operating-system, compiler, library, and driver versions together with a machine-readable environment specification. \\
+  13 & Ethics and consent & Record approving bodies, reference numbers, consent or waiver arrangements, and safeguards for privacy-sensitive material. \\
+  14 & Artifact archive & Provide persistent locations, checksums, licences, and access instructions for code, configurations, trained models, and derived data. \\
+\end{longtable}

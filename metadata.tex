@@ -1,0 +1,54 @@
+% Edit this file for title-page data and optional-component switches. Package
+% setup belongs in preamble.tex; document order belongs in main.tex.
+
+\newcommand{\thesistitle}{Thesis Title}
+\newcommand{\studentname}{Full Name of Student}
+\newcommand{\degree}{Doctor of Philosophy}
+\newcommand{\degreeabbr}{PhD}
+\newcommand{\department}{Name of Department}
+
+% The title page must show the month and year of the INITIAL submission,
+% including when the final thesis is prepared later.
+\newcommand{\initialsubmissionmonth}{Month}
+\newcommand{\initialsubmissionyear}{20XX}
+\newcommand{\awardyear}{20XX}
+
+\newcommand{\chiefsupervisor}{Name of Chief Supervisor}
+
+% Leave this placeholder for a handwritten signature. To insert an electronic
+% signature, replace it with, for example:
+% \renewcommand{\studentsignature}{\includegraphics[height=15mm]{signature.pdf}}
+\newcommand{\studentsignature}{\rule{0pt}{16mm}}
+
+% Initial examination copy: true. Final corrected copy: false.
+\newif\ifinitialsubmission
+\initialsubmissiontrue
+
+% Dual PhD only. Set true and replace both fields when applicable.
+\newif\ifdualdegree
+\dualdegreefalse
+\newcommand{\partneruniversity}{Name of Partner University}
+\newcommand{\partnerdepartment}{Name of Department at Partner University}
+
+% Transfer-in PhD students must enable the mandatory attribution/IP statement.
+\newif\iftransferin
+\transferinfalse
+\newcommand{\polyuworkchapters}{X--Y}
+\newcommand{\previousuniversity}{Name of Previous University}
+
+% Optional components. Replace `true` with `false` on the corresponding final
+% line to disable an item; no change to main.tex is required.
+\newif\ifdedication
+\dedicationtrue % Use \dedicationfalse to omit the dedication.
+\newif\ifpublications
+\publicationstrue % Use \publicationsfalse to omit the publications page.
+\newif\iflistoffigures
+\listoffigurestrue % Use \listoffiguresfalse to omit the List of Figures.
+\newif\iflistoftables
+\listoftablestrue % Use \listoftablesfalse to omit the List of Tables.
+\newif\iflistofalgorithms
+\listofalgorithmstrue % Use \listofalgorithmsfalse to omit the algorithm list.
+\newif\iflistoflistings
+\listoflistingstrue % Use \listoflistingsfalse to omit the code-listing list.
+\newif\ifabbreviations
+\abbreviationstrue % Use \abbreviationsfalse to omit abbreviations.

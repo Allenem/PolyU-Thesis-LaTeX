@@ -1,0 +1,20 @@
+% Packages and machine-readable PDF configuration belong here. Most users do
+% not need to edit this file when changing thesis content or front-matter items.
+
+\usepackage[
+  backend=biber,
+  style=numeric-comp,
+  sorting=nyt,
+  sortcites=true,
+  giveninits=true,
+  uniquename=init,
+  maxbibnames=99
+]{biblatex}
+\addbibresource{references.bib}
+
+\hypersetup{
+  pdftitle={\thesistitle},
+  pdfauthor={\studentname},
+  pdfsubject={Thesis submitted for the degree of \degree},
+  pdfcreator={LaTeX with the PolyU Thesis LaTeX template}
+}

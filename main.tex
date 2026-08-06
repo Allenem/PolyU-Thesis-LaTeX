@@ -1,0 +1,69 @@
+% QUICK SETTING: use `onehalf` for 1.5 line spacing or `double` for 2.0.
+\documentclass[onehalf,screen]{polyu-thesis}
+
+% User-supplied document data and optional-component switches.
+\input{metadata}
+% Packages and PDF/bibliography configuration are isolated from document order.
+\input{preamble}
+
+\begin{document}
+
+% Cover, title page, certificate, and (if applicable) transfer-in statement.
+\pagenumbering{gobble}
+\hypersetup{pageanchor=false}
+\makecoverpage
+\makethesistitlepage
+\input{frontmatter/certificate-of-originality}
+\iftransferin
+  \input{frontmatter/research-attribution}
+\fi
+
+% Preliminary pages use lower-case Roman numerals.
+\hypersetup{pageanchor=true}
+\thesisfrontmatter
+\ifdedication
+  \input{frontmatter/dedication}
+\fi
+\input{frontmatter/abstract}
+\ifpublications
+  \input{frontmatter/publications}
+\fi
+\input{frontmatter/acknowledgements}
+
+\clearpage
+\tableofcontents
+\iflistoffigures
+  \clearpage
+  \listoffigures
+\fi
+\iflistoftables
+  \clearpage
+  \listoftables
+\fi
+\iflistofalgorithms
+  \clearpage
+  \listofalgorithms
+\fi
+\iflistoflistings
+  \clearpage
+  \lstlistoflistings
+\fi
+\ifabbreviations
+  \input{frontmatter/abbreviations}
+\fi
+
+% Thesis body uses Arabic page numbers.
+\thesismainmatter
+\input{chapters/01-introduction}
+\input{chapters/02-literature-review}
+\input{chapters/study-1/main}
+\input{chapters/04-conclusions}
+
+% PolyU's prescribed order places appendices before references.
+\appendix
+\input{appendices/appendix-a}
+
+\clearpage
+\printbibliography[heading=bibintoc,title={References}]
+
+\end{document}

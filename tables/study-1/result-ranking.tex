@@ -1,0 +1,23 @@
+\begin{table}[htbp]
+  \centering
+  \caption[Example ranked result table.]{Example ranked result table with fictitious values. The caption tests \best{bold best-result text} and \runnerup{underlined runner-up text}; the plain optional caption keeps both styles out of the List of Tables. Arrows indicate the preferred direction of each metric.}
+  \label{tab:result-ranking}
+  \begin{threeparttable}
+  \small
+  \begin{tabularx}{\textwidth}{@{}l@{\hspace{4mm}}*{4}{>{\centering\arraybackslash}X}@{}}
+    \toprule
+    \multirow{2}{*}{\textbf{Method}} & \multicolumn{2}{c}{\textbf{Primary evaluation}} & \multicolumn{2}{c}{\textbf{External evaluation}} \\
+    \cmidrule(lr){2-3}\cmidrule(l){4-5}
+    & \textbf{Score $\uparrow$} & \textbf{Error $\downarrow$} & \textbf{Score $\uparrow$} & \textbf{Time (ms) $\downarrow$} \\
+    \midrule
+    Baseline A & 0.812 $\pm$ 0.011 & 0.184 $\pm$ 0.008 & 0.774 & 18.2 \\
+    Baseline B & 0.846 $\pm$ 0.009 & \runnerup{0.151 $\pm$ 0.006} & 0.801 & \best{12.7} \\
+    Baseline C & \runnerup{0.873 $\pm$ 0.007} & 0.158 $\pm$ 0.007 & \runnerup{0.829} & 16.4 \\
+    Proposed method & \best{0.891 $\pm$ 0.006} & \best{0.143 $\pm$ 0.005} & \best{0.851} & \runnerup{14.1} \\
+    \bottomrule
+  \end{tabularx}
+  \begin{tablenotes}[flushleft]\footnotesize
+    \item Values are illustrative means $\pm$ standard deviations. Replace them with verified results and state the number of repetitions and statistical procedure.
+  \end{tablenotes}
+  \end{threeparttable}
+\end{table}
