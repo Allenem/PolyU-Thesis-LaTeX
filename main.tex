@@ -1,5 +1,7 @@
-% QUICK SETTING: use `onehalf` for 1.5 line spacing or `double` for 2.0.
-\documentclass[onehalf,screen]{polyu-thesis}
+% QUICK SETTINGS:
+% - use `onehalf` for 1.5 line spacing or `double` for 2.0;
+% - use `blackaccent` (default) or `redaccent` for PolyU-red highlights.
+\documentclass[onehalf,blackaccent]{polyu-thesis}
 
 % User-supplied document data and optional-component switches.
 \input{metadata}
@@ -11,8 +13,6 @@
 % Cover, title page, certificate, and (if applicable) transfer-in statement.
 \pagenumbering{gobble}
 \hypersetup{pageanchor=false}
-% Optional PolyU Library copyright page. Uncomment the next line to include it.
-% \makecopyrightundertaking
 \makecoverpage
 \makethesistitlepage
 \input{frontmatter/certificate-of-originality}

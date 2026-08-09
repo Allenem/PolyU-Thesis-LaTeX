@@ -1,16 +1,16 @@
 %% PolyU Thesis LaTeX class
 %% Based on the PolyU Research Postgraduate thesis format regulations for 2025/26.
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{polyu-thesis}[2026/08/07 v1.9 PolyU Thesis LaTeX class]
+\ProvidesClass{polyu-thesis}[2026/08/10 v2.1 PolyU Thesis LaTeX class]
 
 \newif\ifpolyu@double
-\newif\ifpolyu@screen
+\newif\ifpolyu@redaccent
 \polyu@doublefalse
-\polyu@screentrue
+\polyu@redaccentfalse
 \DeclareOption{double}{\polyu@doubletrue}
 \DeclareOption{onehalf}{\polyu@doublefalse}
-\DeclareOption{screen}{\polyu@screentrue}
-\DeclareOption{print}{\polyu@screenfalse}
+\DeclareOption{blackaccent}{\polyu@redaccentfalse}
+\DeclareOption{redaccent}{\polyu@redaccenttrue}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{report}}
 \ProcessOptions\relax
 
@@ -25,10 +25,8 @@
 % Load theorem support before newtxmath so both agree on the proof-end symbol.
 \RequirePackage{amsthm}
 \RequirePackage{newtxtext,newtxmath}
-% The reference thesis uses Times New Roman for both body text and headings.
-% Keep the template portable under pdfLaTeX by mapping every sans-serif request
-% to newtx's metrically compatible Times face as well.
-\renewcommand{\sfdefault}{\rmdefault}
+% Body text, headings, captions, and ordinary bold emphasis all use the same
+% Times-compatible serif family. Code retains its dedicated monospaced face.
 \RequirePackage{microtype}
 \RequirePackage{setspace}
 \RequirePackage[table,dvipsnames]{xcolor}
@@ -72,41 +70,39 @@
   \pdfminorversion=7
 \fi
 
-% Brand colours sampled from PolyU's official logo asset. A single accent keeps
-% all PDF navigation predictable; print mode below suppresses link colour.
+% Brand colours sampled from PolyU's official logo asset. Black is the default
+% for conventional theses; `redaccent` applies PolyU red consistently to
+% navigation, chapter labels, and code highlights.
 \definecolor{PolyURed}{HTML}{A02337}
 \definecolor{PolyUGrey}{HTML}{58595B}
 \definecolor{ThesisInk}{HTML}{202124}
-\colorlet{ThesisAccent}{PolyURed}
-\colorlet{ThesisLink}{PolyURed}
 \definecolor{ThesisPanel}{HTML}{F3F4F6}
 \definecolor{ThesisRule}{HTML}{C9CDD3}
-\definecolor{CodeString}{HTML}{1D5B68}
+\definecolor{PolyUCodeString}{HTML}{1D5B68}
 
-\ifpolyu@screen
-  \hypersetup{
-    colorlinks=true,
-    linkcolor=ThesisAccent,
-    citecolor=ThesisLink,
-    urlcolor=ThesisLink,
-    filecolor=ThesisLink,
-    linktoc=all,
-    bookmarksnumbered=true,
-    bookmarksopen=true,
-    bookmarksopenlevel=2,
-    pdfpagelayout=OneColumn,
-    pdfdisplaydoctitle=true
-  }
+\ifpolyu@redaccent
+  \colorlet{ThesisAccent}{PolyURed}
+  \colorlet{ThesisLink}{PolyURed}
+  \colorlet{ThesisCodeString}{PolyUCodeString}
 \else
-  \hypersetup{
-    hidelinks,
-    bookmarksnumbered=true,
-    bookmarksopen=true,
-    bookmarksopenlevel=2,
-    pdfpagelayout=OneColumn,
-    pdfdisplaydoctitle=true
-  }
+  \colorlet{ThesisAccent}{black}
+  \colorlet{ThesisLink}{black}
+  \colorlet{ThesisCodeString}{ThesisInk}
 \fi
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=ThesisAccent,
+  citecolor=ThesisLink,
+  urlcolor=ThesisLink,
+  filecolor=ThesisLink,
+  linktoc=all,
+  bookmarksnumbered=true,
+  bookmarksopen=true,
+  bookmarksopenlevel=2,
+  pdfpagelayout=OneColumn,
+  pdfdisplaydoctitle=true
+}
 
 % The document class option is the single source of truth for line spacing.
 \newcommand{\polyu@applylinespacing}{%
@@ -123,18 +119,16 @@
 % Two lines are permitted for exceptionally long chapter marks.
 \setlength{\headheight}{27pt}
 
-% Caption labels and other textual bold emphasis use the same sans-serif face;
-% caption prose remains in the Times-compatible body face.
-\captionsetup{font={normalsize,rm},labelfont={bf,sf},labelsep=period}
-\captionsetup[algorithm]{font={normalsize,rm},labelfont={bf,sf},labelsep=period}
+% Caption labels and prose use the Times-compatible body family at body size.
+\captionsetup{font={normalsize,rm},labelfont={bf,rm},labelsep=period}
+\captionsetup[algorithm]{font={normalsize,rm},labelfont={bf,rm},labelsep=period}
 \captionsetup[lstlisting]{
   font={normalsize,rm},
-  labelfont={bf,sf},
+  labelfont={bf,rm},
   labelsep=period,
   justification=raggedright,
   singlelinecheck=false
 }
-\DeclareTextFontCommand{\textbf}{\sffamily\bfseries}
 \sisetup{detect-all}
 \graphicspath{{figures/}}
 \renewcommand{\arraystretch}{1.12}
@@ -142,39 +136,39 @@
 % Modern, restrained hierarchy inspired by well-designed technical reports.
 % Body text remains a highly readable Times-compatible face.
 \titleformat{\chapter}[display]
-  {\normalfont\sffamily\bfseries\color{ThesisInk}\raggedright}
+  {\normalfont\rmfamily\bfseries\color{ThesisInk}\raggedright}
   {\fontsize{12}{14}\selectfont\color{ThesisAccent}\MakeUppercase{\chaptertitlename}\ \thechapter}
   {7pt}
   {\fontsize{26}{31}\selectfont}
   [\vspace{8pt}\color{ThesisRule}\titlerule]
 \titleformat{name=\chapter,numberless}[display]
-  {\normalfont\sffamily\bfseries\color{ThesisInk}\raggedright}
+  {\normalfont\rmfamily\bfseries\color{ThesisInk}\raggedright}
   {}
   {0pt}
   {\fontsize{26}{31}\selectfont}
   [\vspace{8pt}\color{ThesisRule}\titlerule]
 \titlespacing*{\chapter}{0pt}{-8pt}{30pt}
 \titleformat{\section}
-  {\normalfont\Large\sffamily\bfseries\color{ThesisInk}}
+  {\normalfont\Large\rmfamily\bfseries\color{ThesisInk}}
   {\thesection}{0.7em}{}
 \titleformat{\subsection}
-  {\normalfont\large\sffamily\bfseries\color{ThesisInk}}
+  {\normalfont\large\rmfamily\bfseries\color{ThesisInk}}
   {\thesubsection}{0.7em}{}
 \titleformat{\subsubsection}
-  {\normalfont\normalsize\sffamily\bfseries\color{ThesisInk}}
+  {\normalfont\normalsize\rmfamily\bfseries\color{ThesisInk}}
   {\thesubsubsection}{0.7em}{}
 
 % Navigation for a long thesis; chapter-opening pages stay visually quiet.
 \renewcommand{\chaptermark}[1]{\markboth{\thechapter\quad #1}{}}
 \renewcommand{\sectionmark}[1]{\markright{\thesection\quad #1}}
 \fancyhf{}
-\fancyhead[L]{\small\sffamily\nouppercase{\leftmark}}
-\fancyhead[R]{\small\sffamily\thepage}
+\fancyhead[L]{\small\rmfamily\nouppercase{\leftmark}}
+\fancyhead[R]{\small\rmfamily\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\footrulewidth}{0pt}
 \fancypagestyle{plain}{%
   \fancyhf{}%
-  \fancyfoot[C]{\small\sffamily\thepage}%
+  \fancyfoot[C]{\small\rmfamily\thepage}%
   \renewcommand{\headrulewidth}{0pt}%
 }
 \pagestyle{fancy}
@@ -193,17 +187,17 @@
 % Accessible, print-safe result ranking for quantitative comparison tables.
 % Use these semantic commands instead of colour-only red/blue highlighting.
 \newcommand{\best}[1]{\textbf{#1}}
-\newcommand{\runnerup}[1]{{\sffamily\mdseries\underline{#1}}}
+\newcommand{\runnerup}[1]{{\rmfamily\mdseries\underline{#1}}}
 
 \newtheoremstyle{thesisplain}
   {\topsep}{\topsep}{\itshape}{}% body spacing and font
-  {\sffamily\bfseries}{.}{0.5em}{}% head font and punctuation
+  {\rmfamily\bfseries}{.}{0.5em}{}% head font and punctuation
 \newtheoremstyle{thesisdefinition}
   {\topsep}{\topsep}{\normalfont}{}% body spacing and font
-  {\sffamily\bfseries}{.}{0.5em}{}% head font and punctuation
+  {\rmfamily\bfseries}{.}{0.5em}{}% head font and punctuation
 \newtheoremstyle{thesisremark}
   {\topsep}{\topsep}{\normalfont}{}% body spacing and font
-  {\sffamily\bfseries}{.}{0.5em}{}% head font and punctuation
+  {\rmfamily\bfseries}{.}{0.5em}{}% head font and punctuation
 \theoremstyle{thesisplain}
 \newtheorem{theorem}{Theorem}[chapter]
 \newtheorem{lemma}[theorem]{Lemma}
@@ -215,9 +209,9 @@
 
 \lstdefinestyle{thesis}{
   basicstyle=\small\ttfamily,
-  keywordstyle=\bfseries\color{PolyURed},
+  keywordstyle=\bfseries\color{ThesisAccent},
   commentstyle=\itshape\color{PolyUGrey},
-  stringstyle=\color{CodeString},
+  stringstyle=\color{ThesisCodeString},
   numbers=left,
   numberstyle=\scriptsize\ttfamily\color{PolyUGrey},
   frame=single,
@@ -279,9 +273,9 @@
   \thispagestyle{empty}%
   \begin{center}
     \vspace*{18mm}
-    {\Large\sffamily\bfseries\MakeUppercase{\thesistitle}\par}
+    {\Large\rmfamily\bfseries\MakeUppercase{\thesistitle}\par}
     \vfill
-    {\large\sffamily\bfseries\MakeUppercase{\studentname}\par}
+    {\large\rmfamily\bfseries\MakeUppercase{\studentname}\par}
     \vspace{18mm}
     {\large\degreeabbr\par}
     \vspace{18mm}
@@ -301,55 +295,11 @@
   \clearpage
 }
 
-% Library copyright notice placed before the thesis cover, following the
-% ordering and wording used in accepted PolyU electronic theses.
-\newcommand{\makecopyrightundertaking}{%
-  \clearpage
-  \thispagestyle{empty}%
-  \begingroup
-    \singlespacing
-    \small
-    \noindent\includegraphics[width=72mm]{assets/polyu-library-header.png}\par
-    \vspace{10mm}
-    \noindent\rule{\textwidth}{0.4pt}\par
-    \vspace{5mm}
-    \begin{center}
-      {\large\bfseries Copyright Undertaking}
-    \end{center}
-    \vspace{10mm}
-    This thesis is protected by copyright, with all rights reserved.\par
-    \vspace{4mm}
-    \textbf{By reading and using the thesis, the reader understands and agrees to the following terms:}
-    \begin{enumerate}[leftmargin=8mm,itemsep=3mm,topsep=4mm]
-      \item The reader will abide by the rules and legal ordinances governing copyright regarding the use of the thesis.
-      \item The reader will use the thesis for the purpose of research or private study only and not for distribution or further reproduction or any other purpose.
-      \item The reader agrees to indemnify and hold the University harmless from and against any loss, damage, cost, liability or expenses arising from copyright infringement or unauthorized usage.
-    \end{enumerate}
-    \vfill
-    \noindent\fbox{%
-      \begin{minipage}{\dimexpr\textwidth-2\fboxsep-2\fboxrule\relax}
-        \centering\bfseries IMPORTANT\par
-        \vspace{2mm}
-        \raggedright\mdseries
-        If you have reasons to believe that any materials in this thesis are deemed not suitable to be distributed in this form, or a copyright owner having difficulty with the material being included in our database, please contact \href{mailto:lbsys@polyu.edu.hk}{lbsys@polyu.edu.hk} providing details. The Library will look into your claim and consider taking remedial action upon receipt of the written requests.
-      \end{minipage}%
-    }
-    \vfill
-    \begin{center}
-      \footnotesize
-      Pao Yue-kong Library, The Hong Kong Polytechnic University, Hung Hom, Kowloon, Hong Kong\par
-      \vspace{4mm}
-      \url{http://www.lib.polyu.edu.hk}
-    \end{center}
-  \endgroup
-  \clearpage
-}
-
 \newcommand{\makethesistitlepage}{%
   \thispagestyle{empty}%
   \begin{center}
     \vspace*{10mm}
-    {\Large\sffamily\bfseries The Hong Kong Polytechnic University\par}
+    {\Large\rmfamily\bfseries The Hong Kong Polytechnic University\par}
     \vspace{12mm}
     {\large\department\par}
     \ifdualdegree
@@ -359,7 +309,7 @@
       {\large\partnerdepartment\par}
     \fi
     \vfill
-    {\Large\sffamily\bfseries\thesistitle\par}
+    {\Large\rmfamily\bfseries\thesistitle\par}
     \vfill
     {\large\studentname\par}
     \vfill

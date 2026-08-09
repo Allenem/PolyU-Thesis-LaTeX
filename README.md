@@ -4,7 +4,7 @@ An unofficial, anonymous-ready thesis template based on the PolyU [Research Post
 
 ## Preview
 
-[![Eight-page thesis layout showcase](assets/thesis-showcase.png)](assets/thesis-showcase.png)
+[![Eight-page thesis layout showcase](https://github.com/jinggqu/PolyU-Thesis-LaTeX/releases/download/preview/thesis-showcase.png)](https://github.com/jinggqu/PolyU-Thesis-LaTeX/releases/download/preview/thesis-showcase.png)
 
 For the complete set of styles and full-resolution examples, [download the compiled PDF](thesis.pdf).
 
@@ -43,7 +43,6 @@ metadata.tex              Thesis data and optional-component switches
 preamble.tex              Packages, bibliography, and PDF setup
 polyu-thesis.cls          Thesis layout and styles
 references.bib            Bibliography database
-assets/                   README preview images
 frontmatter/              Declaration, abstract, publications, acknowledgements
 chapters/                 General chapters and study directories
   study-1/
@@ -63,6 +62,7 @@ Shared assets may remain at the root of `tables/`, `figures/`, or `code/`. To ad
 ## Common settings
 
 - Change `onehalf` to `double` at the top of `main.tex` for double spacing.
+- Keep `blackaccent` for conventional black styling, or select `redaccent` for PolyU-red highlights.
 - Change an optional switch from `true` to `false` in `metadata.tex` to omit it.
 - Use `\Cref{...}` for automatic Equation, Figure, Table, and Algorithm names.
 - Use `\best{...}` and `\runnerup{...}` for ranked table results.
