@@ -10,6 +10,13 @@ For the complete set of styles and full-resolution examples, [download the compi
 
 ## Quick start
 
+### Clone
+
+```text
+git clone --depth 1 https://github.com/jinggqu/PolyU-Thesis-LaTeX.git
+cd PolyU-Thesis-LaTeX
+```
+
 ### AI-assisted setup
 
 For the easiest first-time setup, give [SETUP.md](SETUP.md) to an AI coding agent with terminal access. The agent will detect the operating system, guide or perform a compact English-only TeX Live installation, clone this project, collect the required thesis metadata, compile the document, and open `thesis.pdf` with the system default application. It will request confirmation before installing software or using administrator privileges.
@@ -62,7 +69,7 @@ Shared assets may remain at the root of `tables/`, `figures/`, or `code/`. To ad
 ## Common settings
 
 - Change `onehalf` to `double` at the top of `main.tex` for double spacing.
-- Keep `blackaccent` for conventional black styling, or select `redaccent` for PolyU-red highlights.
+- Keep `redaccent` for PolyU-red hyperlinks, or select `blackaccent` for black hyperlinks. Structural text and code remain neutral; contents and other lists keep both titles and page numbers clickable while highlighting page numbers only.
 - Change an optional switch from `true` to `false` in `metadata.tex` to omit it.
 - Use `\Cref{...}` for automatic Equation, Figure, Table, and Algorithm names.
 - Use `\best{...}` and `\runnerup{...}` for ranked table results.

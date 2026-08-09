@@ -1,16 +1,16 @@
-% QUICK SETTINGS:
+% Quick settings:
 % - use `onehalf` for 1.5 line spacing or `double` for 2.0;
-% - use `blackaccent` (default) or `redaccent` for PolyU-red highlights.
-\documentclass[onehalf,blackaccent]{polyu-thesis}
+% - use `redaccent` (default) or `blackaccent` for black hyperlinks.
+\documentclass[onehalf,redaccent]{polyu-thesis}
 
-% User-supplied document data and optional-component switches.
+% Thesis metadata and optional sections.
 \input{metadata}
-% Packages and PDF/bibliography configuration are isolated from document order.
+% User packages, bibliography, and PDF metadata.
 \input{preamble}
 
 \begin{document}
 
-% Cover, title page, certificate, and (if applicable) transfer-in statement.
+% Required opening pages.
 \pagenumbering{gobble}
 \hypersetup{pageanchor=false}
 \makecoverpage
@@ -20,7 +20,7 @@
   \input{frontmatter/research-attribution}
 \fi
 
-% Preliminary pages use lower-case Roman numerals.
+% Front matter uses lower-case Roman numerals.
 \hypersetup{pageanchor=true}
 \thesisfrontmatter
 \ifdedication
@@ -54,7 +54,7 @@
   \input{frontmatter/abbreviations}
 \fi
 
-% Thesis body uses Arabic page numbers.
+% Main matter uses Arabic page numbers.
 \thesismainmatter
 \input{chapters/01-introduction}
 \input{chapters/02-literature-review}

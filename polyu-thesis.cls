@@ -1,12 +1,12 @@
 %% PolyU Thesis LaTeX class
 %% Based on the PolyU Research Postgraduate thesis format regulations for 2025/26.
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{polyu-thesis}[2026/08/10 v2.1 PolyU Thesis LaTeX class]
+\ProvidesClass{polyu-thesis}[2026/08/10 v2.2 PolyU Thesis LaTeX class]
 
 \newif\ifpolyu@double
 \newif\ifpolyu@redaccent
 \polyu@doublefalse
-\polyu@redaccentfalse
+\polyu@redaccenttrue
 \DeclareOption{double}{\polyu@doubletrue}
 \DeclareOption{onehalf}{\polyu@doublefalse}
 \DeclareOption{blackaccent}{\polyu@redaccentfalse}
@@ -16,17 +16,16 @@
 
 \LoadClass[12pt,a4paper,oneside,openany]{report}
 
-% A4 is mandatory. PolyU does not prescribe margin dimensions. A uniform 25 mm
-% margin is a common electronic-thesis default and leaves a 160 mm text block.
+% PolyU requires A4 but does not specify margins; use 25 mm on all sides.
 \RequirePackage[a4paper,margin=25mm]{geometry}
 \RequirePackage[T1]{fontenc}
 \RequirePackage[utf8]{inputenc}
 \RequirePackage[english]{babel}
 % Load theorem support before newtxmath so both agree on the proof-end symbol.
 \RequirePackage{amsthm}
+\RequirePackage{xpatch}
 \RequirePackage{newtxtext,newtxmath}
-% Body text, headings, captions, and ordinary bold emphasis all use the same
-% Times-compatible serif family. Code retains its dedicated monospaced face.
+% Use a Times-compatible serif family for text and headings.
 \RequirePackage{microtype}
 \RequirePackage{setspace}
 \RequirePackage[table,dvipsnames]{xcolor}
@@ -36,12 +35,11 @@
 \RequirePackage{makecell}
 \RequirePackage{adjustbox}
 \RequirePackage{threeparttable}
-% tablefootnote detects rotating at begin-document time, so load it first.
+% Load rotating before tablefootnote so rotation is detected.
 \RequirePackage{rotating}
 \RequirePackage{tablefootnote}
 \RequirePackage{siunitx}
-% newtxmath already provides the AMS-style symbol repertoire; loading amssymb
-% afterwards duplicates \Bbbk on current TeX Live releases.
+% Do not load amssymb: newtxmath already defines \Bbbk.
 \RequirePackage{mathtools,bm}
 \RequirePackage{caption,subcaption,float}
 \RequirePackage{placeins}
@@ -54,7 +52,7 @@
 \counterwithin{algorithm}{chapter}
 \RequirePackage{listings}
 \RequirePackage{upquote}
-% Inconsolata is a clean sans-serif monospaced face for source code.
+% Use Inconsolata for source code.
 \RequirePackage[scaled=0.95]{inconsolata}
 \RequirePackage{csquotes}
 \RequirePackage{url}
@@ -65,34 +63,27 @@
 \RequirePackage{bookmark}
 \RequirePackage[nameinlink,noabbrev]{cleveref}
 
-% pdfTeX emits a searchable PDF newer than the mandatory PDF 1.4 baseline.
+% Generate searchable PDF 1.7; PolyU requires PDF 1.4 or later.
 \ifdefined\pdfminorversion
   \pdfminorversion=7
 \fi
 
-% Brand colours sampled from PolyU's official logo asset. Black is the default
-% for conventional theses; `redaccent` applies PolyU red consistently to
-% navigation, chapter labels, and code highlights.
+% Use PolyU red for links. The `blackaccent` option makes links black.
 \definecolor{PolyURed}{HTML}{A02337}
 \definecolor{PolyUGrey}{HTML}{58595B}
 \definecolor{ThesisInk}{HTML}{202124}
 \definecolor{ThesisPanel}{HTML}{F3F4F6}
 \definecolor{ThesisRule}{HTML}{C9CDD3}
-\definecolor{PolyUCodeString}{HTML}{1D5B68}
 
 \ifpolyu@redaccent
-  \colorlet{ThesisAccent}{PolyURed}
   \colorlet{ThesisLink}{PolyURed}
-  \colorlet{ThesisCodeString}{PolyUCodeString}
 \else
-  \colorlet{ThesisAccent}{black}
   \colorlet{ThesisLink}{black}
-  \colorlet{ThesisCodeString}{ThesisInk}
 \fi
 
 \hypersetup{
   colorlinks=true,
-  linkcolor=ThesisAccent,
+  linkcolor=ThesisLink,
   citecolor=ThesisLink,
   urlcolor=ThesisLink,
   filecolor=ThesisLink,
@@ -104,7 +95,32 @@
   pdfdisplaydoctitle=true
 }
 
-% The document class option is the single source of truth for line spacing.
+% Keep list titles black and clickable; colour only page numbers. Hyperref has
+% three title-link branches, so patch all three.
+\xpatchcmd{\contentsline}
+  {\Hy@toclinkstart{#2}\Hy@toclinkend}
+  {\Hy@toclinkstart{\normalcolor #2}\Hy@toclinkend}
+  {}
+  {\ClassWarning{polyu-thesis}{Unable to neutralise a contents title link}}
+\xpatchcmd{\contentsline}
+  {\Hy@toclinkstart{#2}\Hy@toclinkend}
+  {\Hy@toclinkstart{\normalcolor #2}\Hy@toclinkend}
+  {}
+  {\ClassWarning{polyu-thesis}{Unable to neutralise a contents title link}}
+\xpatchcmd{\contentsline}
+  {\Hy@toclinkstart{#2}\Hy@toclinkend}
+  {\Hy@toclinkstart{\normalcolor #2}\Hy@toclinkend}
+  {}
+  {\ClassWarning{polyu-thesis}{Unable to neutralise a contents title link}}
+
+% Use the font's centred dot instead of a baseline period in list leaders.
+\xpatchcmd{\@dottedtocline}
+  {\hbox{.}}
+  {\hbox{\textperiodcentered}}
+  {}
+  {\ClassWarning{polyu-thesis}{Unable to align contents dot leaders}}
+
+% Apply the class line-spacing option throughout the thesis.
 \newcommand{\polyu@applylinespacing}{%
   \ifpolyu@double\doublespacing\else\onehalfspacing\fi
 }
@@ -114,12 +130,12 @@
 \setlength{\parskip}{0pt}
 \setlist{nosep}
 \setcounter{secnumdepth}{3}
-% The contents contains three heading levels: chapter, section, subsection.
+% Show chapters, sections, and subsections in the contents.
 \setcounter{tocdepth}{2}
-% Two lines are permitted for exceptionally long chapter marks.
+% Allow two-line running heads.
 \setlength{\headheight}{27pt}
 
-% Caption labels and prose use the Times-compatible body family at body size.
+% Set captions in the body font and size.
 \captionsetup{font={normalsize,rm},labelfont={bf,rm},labelsep=period}
 \captionsetup[algorithm]{font={normalsize,rm},labelfont={bf,rm},labelsep=period}
 \captionsetup[lstlisting]{
@@ -133,11 +149,10 @@
 \graphicspath{{figures/}}
 \renewcommand{\arraystretch}{1.12}
 
-% Modern, restrained hierarchy inspired by well-designed technical reports.
-% Body text remains a highly readable Times-compatible face.
+% Serif heading hierarchy.
 \titleformat{\chapter}[display]
   {\normalfont\rmfamily\bfseries\color{ThesisInk}\raggedright}
-  {\fontsize{12}{14}\selectfont\color{ThesisAccent}\MakeUppercase{\chaptertitlename}\ \thechapter}
+  {\fontsize{12}{14}\selectfont\color{ThesisInk}\MakeUppercase{\chaptertitlename}\ \thechapter}
   {7pt}
   {\fontsize{26}{31}\selectfont}
   [\vspace{8pt}\color{ThesisRule}\titlerule]
@@ -158,7 +173,7 @@
   {\normalfont\normalsize\rmfamily\bfseries\color{ThesisInk}}
   {\thesubsubsection}{0.7em}{}
 
-% Navigation for a long thesis; chapter-opening pages stay visually quiet.
+% Running heads; chapter-opening pages show only the page number.
 \renewcommand{\chaptermark}[1]{\markboth{\thechapter\quad #1}{}}
 \renewcommand{\sectionmark}[1]{\markright{\thesection\quad #1}}
 \fancyhf{}
@@ -173,8 +188,6 @@
 }
 \pagestyle{fancy}
 
-% Common scientific-content tools, integrated here so the thesis remains a
-% single self-contained template.
 \newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 \newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 \newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
@@ -184,8 +197,7 @@
 \newcommand{\etc}{\textit{etc.}\xspace}
 \newcommand{\etal}{\textit{et~al.}\xspace}
 
-% Accessible, print-safe result ranking for quantitative comparison tables.
-% Use these semantic commands instead of colour-only red/blue highlighting.
+% Mark best results in bold and runner-up results with an underline.
 \newcommand{\best}[1]{\textbf{#1}}
 \newcommand{\runnerup}[1]{{\rmfamily\mdseries\underline{#1}}}
 
@@ -209,9 +221,9 @@
 
 \lstdefinestyle{thesis}{
   basicstyle=\small\ttfamily,
-  keywordstyle=\bfseries\color{ThesisAccent},
+  keywordstyle=\bfseries\color{ThesisInk},
   commentstyle=\itshape\color{PolyUGrey},
-  stringstyle=\color{ThesisCodeString},
+  stringstyle=\color{ThesisInk},
   numbers=left,
   numberstyle=\scriptsize\ttfamily\color{PolyUGrey},
   frame=single,
@@ -228,9 +240,7 @@
 \renewcommand{\lstlistingname}{Listing}
 \renewcommand{\lstlistlistingname}{List of Listings}
 
-% Float lists inherit the selected thesis line spacing and preserve the same
-% chapter-group spacing used by the table of contents. The report class writes
-% these gaps for figures and tables; add matching gaps for algorithms and code.
+% Use the thesis spacing and chapter gaps in every float list.
 \pretocmd{\@chapter}{%
   \addtocontents{loa}{\protect\addvspace{10\p@}}%
   \addtocontents{lol}{\protect\addvspace{10\p@}}%

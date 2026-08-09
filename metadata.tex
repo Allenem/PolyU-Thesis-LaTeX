@@ -1,5 +1,4 @@
-% Edit this file for title-page data and optional-component switches. Package
-% setup belongs in preamble.tex; document order belongs in main.tex.
+% Edit thesis metadata and optional sections here.
 
 \newcommand{\thesistitle}{Thesis Title}
 \newcommand{\studentname}{Full Name of Student}
@@ -7,37 +6,34 @@
 \newcommand{\degreeabbr}{PhD}
 \newcommand{\department}{Name of Department}
 
-% The title page must show the month and year of the INITIAL submission,
-% including when the final thesis is prepared later.
+% Use the initial submission month and year, even in the final thesis.
 \newcommand{\initialsubmissionmonth}{Month}
 \newcommand{\initialsubmissionyear}{20XX}
 \newcommand{\awardyear}{20XX}
 
 \newcommand{\chiefsupervisor}{Name of Chief Supervisor}
 
-% Leave this placeholder for a handwritten signature. To insert an electronic
-% signature, replace it with, for example:
+% Replace this space with an electronic signature if needed:
 % \renewcommand{\studentsignature}{\includegraphics[height=15mm]{signature.pdf}}
 \newcommand{\studentsignature}{\rule{0pt}{16mm}}
 
-% Initial examination copy: true. Final corrected copy: false.
+% Use true for examination and false for the final corrected thesis.
 \newif\ifinitialsubmission
 \initialsubmissiontrue
 
-% Dual PhD only. Set true and replace both fields when applicable.
+% For a dual PhD, set true and complete both fields.
 \newif\ifdualdegree
 \dualdegreefalse
 \newcommand{\partneruniversity}{Name of Partner University}
 \newcommand{\partnerdepartment}{Name of Department at Partner University}
 
-% Transfer-in PhD students must enable the mandatory attribution/IP statement.
+% Transfer-in PhD students must enable the attribution statement.
 \newif\iftransferin
 \transferinfalse
 \newcommand{\polyuworkchapters}{X--Y}
 \newcommand{\previousuniversity}{Name of Previous University}
 
-% Optional components. Replace `true` with `false` on the corresponding final
-% line to disable an item; no change to main.tex is required.
+% Set a flag to false to omit that section.
 \newif\ifdedication
 \dedicationtrue % Use \dedicationfalse to omit the dedication.
 \newif\ifpublications
