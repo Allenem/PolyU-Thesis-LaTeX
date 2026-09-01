@@ -8,6 +8,8 @@ the important finding rather than repeat every displayed value.
 
 \input{tables/study-1/result-ranking}
 
-Use \verb|\best{...}| and \verb|\runnerup{...}| throughout the thesis rather
-than encoding rank with colour alone. This remains legible when printed in
-greyscale and keeps the meaning consistent across tables.
+The first row in \cref{tab:result-ranking} writes means and standard deviations
+directly. The remaining rows use \verb|\meanstd{mean}{std}| to set the standard
+deviation in a smaller font. Use \verb|\best{...}| and \verb|\runnerup{...}| to
+mark ranks rather than encoding rank with colour alone. These commands can be
+nested.

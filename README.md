@@ -6,7 +6,7 @@ An unofficial, anonymous-ready thesis template based on the PolyU [Research Post
 
 [![Eight-page thesis layout showcase](https://github.com/jinggqu/PolyU-Thesis-LaTeX/releases/download/preview/thesis-showcase.png)](https://github.com/jinggqu/PolyU-Thesis-LaTeX/releases/download/preview/thesis-showcase.png)
 
-For the complete set of styles and full-resolution examples, [download the compiled PDF](thesis.pdf).
+For the complete set of styles and full-resolution examples, [download the compiled PDF](https://github.com/jinggqu/PolyU-Thesis-LaTeX/releases/download/preview/thesis.pdf).
 
 ## Quick start
 
@@ -71,7 +71,8 @@ Shared assets may remain at the root of `tables/`, `figures/`, or `code/`. To ad
 - Change `onehalf` to `double` at the top of `main.tex` for double spacing.
 - Keep `redaccent` for PolyU-red hyperlinks, or select `blackaccent` for black hyperlinks. Structural text and code remain neutral; contents and other lists keep both titles and page numbers clickable while highlighting page numbers only.
 - Change an optional switch from `true` to `false` in `metadata.tex` to omit it.
-- Use `\Cref{...}` for automatic Equation, Figure, Table, and Algorithm names.
+- Use `\cref{...}` for automatic Equation, Figure, Table, and Algorithm names.
+- Use `\meanstd{mean}{std}` to set a smaller standard deviation after a mean.
 - Use `\best{...}` and `\runnerup{...}` for ranked table results.
 - Use a plain optional caption when the full caption contains formatting:
 

@@ -204,6 +204,17 @@
 \newcommand{\best}[1]{\textbf{#1}}
 \newcommand{\runnerup}[1]{{\rmfamily\mdseries\underline{#1}}}
 
+% Set the standard deviation at two thirds of the current mean font size.
+\newcommand{\meanstd}[2]{%
+  #1{%
+    \fontsize
+      {\dimexpr\f@size pt*2/3\relax}
+      {\dimexpr\f@baselineskip*2/3\relax}%
+    \selectfont
+    $\pm$#2%
+  }%
+}
+
 \newtheoremstyle{thesisplain}
   {\topsep}{\topsep}{\itshape}{}% body spacing and font
   {\rmfamily\bfseries}{.}{0.5em}{}% head font and punctuation
@@ -265,6 +276,7 @@
 \newcommand{\thesisfrontchapter}[1]{%
   \clearpage
   \chapter*{#1}%
+  \@mkboth{\MakeUppercase{#1}}{\MakeUppercase{#1}}%
   \phantomsection
   \addcontentsline{toc}{chapter}{#1}%
 }
