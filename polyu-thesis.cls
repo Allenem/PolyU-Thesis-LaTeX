@@ -125,6 +125,9 @@
   \ifpolyu@double\doublespacing\else\onehalfspacing\fi
 }
 \AtBeginDocument{\polyu@applylinespacing}
+% setspace makes floats single-spaced; apply the same rule to longtable,
+% which is not a float and would otherwise inherit the body line spacing.
+\AtBeginEnvironment{longtable}{\setstretch{\setspace@singlespace}}
 
 \setlength{\parindent}{1.5em}
 \setlength{\parskip}{0pt}
