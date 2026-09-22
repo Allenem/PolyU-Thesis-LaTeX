@@ -259,14 +259,26 @@
   \addtocontents{loa}{\protect\addvspace{10\p@}}%
   \addtocontents{lol}{\protect\addvspace{10\p@}}%
 }{}{}
+% Retain compact numeric labels in the printed contents, but make the PDF
+% outline explicit: "Chapter 1 ..." in the main matter and
+% "Appendix A ..." after \appendix.
+\xpatchcmd{\NR@chapter}
+  {\protect\numberline{\thechapter}#1}
+  {\texorpdfstring
+    {\protect\numberline{\thechapter}#1}
+    {\@chapapp\space\thechapter\space#1}}
+  {}
+  {\ClassWarning{polyu-thesis}{Unable to format chapter bookmarks}}
 \newcommand{\polyu@uniformlist}[2]{%
   \begingroup
     \polyu@applylinespacing
     \chapter*{#1}%
+    \bookmark[dest=\@currentHref,level=0]{#1}%
     \@mkboth{\MakeUppercase{#1}}{\MakeUppercase{#1}}%
     \@starttoc{#2}%
   \endgroup
 }
+\renewcommand{\tableofcontents}{\polyu@uniformlist{\contentsname}{toc}}
 \renewcommand{\listoffigures}{\polyu@uniformlist{\listfigurename}{lof}}
 \renewcommand{\listoftables}{\polyu@uniformlist{\listtablename}{lot}}
 \newcommand{\l@algorithm}{\@dottedtocline{1}{1.5em}{2.3em}}
@@ -277,7 +289,6 @@
   \clearpage
   \chapter*{#1}%
   \@mkboth{\MakeUppercase{#1}}{\MakeUppercase{#1}}%
-  \phantomsection
   \addcontentsline{toc}{chapter}{#1}%
 }
 
