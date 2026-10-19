@@ -358,6 +358,7 @@
 }
 
 \crefname{chapter}{Chapter}{Chapters}
+\crefname{appendix}{Appendix}{Appendices}
 \crefname{section}{Section}{Sections}
 \crefname{figure}{Figure}{Figures}
 \crefname{table}{Table}{Tables}
